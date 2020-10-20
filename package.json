@@ -1,0 +1,29 @@
+{
+  "name": "mkrel",
+  "version": "0.1.0",
+  "description": "Release management tool that follows Git Flow",
+  "main": "",
+  "bin": "./mkrel.sh",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skolobov/mkrel.git"
+  },
+  "keywords": [
+    "release",
+    "management",
+    "git-flow"
+  ],
+  "author": "Sergei Kolobov <sergei@kolobov.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skolobov/mkrel/issues"
+  },
+  "homepage": "https://github.com/skolobov/mkrel#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "unleash": "^2.0.2"
+  }
+}
