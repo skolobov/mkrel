@@ -70,21 +70,27 @@ case $1 in
           echo "==> Some release was already started? Finish it first by running '${MKREL} release finish'"
           exit 1
         fi
+
         release_start
         ;;
+
       finish)
         if git flow release list 2>&1 | grep 'No release branches exist.'; then
           echo "==> There isn't any release started - run '${MKREL} release start' first"
           exit 1
         fi
+
         get_version_bump minor
+
         if ! git flow release list 2>&1 | grep ${NEW_VERSION}; then
           echo "==> There is no 'release/${NEW_VERSION}' branch started - run '${MKREL} release start' first"
           exit 1
         fi
+
         echo "==> Finalizing release ${NEW_VERSION}"
         ${STANDARD_VERSION} -r minor
         GIT_MERGE_AUTOEDIT="no" git flow release finish -n -k ${NEW_VERSION}
+
         case $3 in
           -m|--skip-migration)
             [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
@@ -92,14 +98,17 @@ case $1 in
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
             ;;
         esac
+
         # Explicitly push master and develop(ment) branches to origin
         git push --follow-tags origin master
         git push --follow-tags origin ${DEVELOP_BRANCH}
+
         echo "==> Released version ${NEW_VERSION}"
+
         echo "==> Removing local release/${NEW_VERSION} branch (not needed anymore)"
         git branch -d release/${NEW_VERSION}
         echo "==> NOTE: please manually delete 'origin/release/${NEW_VERSION}' branch once CI build is finished"
-        
+
         case $3 in
           -s|--start-new)
             echo "==> Starting a new release right away..."
@@ -107,12 +116,14 @@ case $1 in
             ;;
         esac
         ;;
+
       -h|--help|*)
         show_usage
         exit 1
         ;;
       esac
     ;;
+
   hotfix)
     case $2 in
       start)
@@ -122,18 +133,23 @@ case $1 in
         echo "==> IMPORTANT:"
         echo "==>     Run '${MKREL} $1 finish' to finalize the process"
         ;;
+
       finish)
         if git flow hotfix list 2>&1 | grep 'No hotfix branches exist.'; then
           echo "==> There isn't any hotfix started - run '${MKREL} $1 start' first"
           exit 1
         fi
+
         get_version_bump patch
+
         if ! git flow hotfix list 2>&1 | grep ${NEW_VERSION}; then
           echo "==> There is no 'hotfix/${NEW_VERSION}' branch started - run '${MKREL} $1 start' first"
           exit 1
         fi
+
         ${STANDARD_VERSION} -r patch
         GIT_MERGE_AUTOEDIT="no" git flow hotfix finish -n ${NEW_VERSION}
+
         case $3 in
           -m|--skip-migration)
             [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
@@ -141,17 +157,22 @@ case $1 in
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
             ;;
         esac
+
         # Explicitly push master and develop(ment) branches to origin
         git push --follow-tags origin master
         git push --follow-tags origin ${DEVELOP_BRANCH}
+
         echo "==> Finished hotfix release ${NEW_VERSION}"
         ;;
+
       -h|--help|*)
         show_usage
         exit 1
         ;;
+
     esac
     ;;
+
   -h|--help|*)
     show_usage
     exit 1
