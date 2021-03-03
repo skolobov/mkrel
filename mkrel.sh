@@ -3,7 +3,8 @@ set -e # exit if any of commands fail
 # Check for unleash and install it if missing
 which unleash > /dev/null || npm install -g unleash
 # Check for Git-Flow and install it via Homebrew if missing
-git flow help 2>&1 | grep -q 'is not a git command' && brew install git-flow
+git flow help 2>&1 | grep -q 'is not a git command' && \
+  echo "Please install Git-Flow, eg. 'brew install git-flow'" && exit 1
 # Check for development branch name
 DEVELOP_BRANCH="$(git branch --list 'develop*' --no-color | head -1 | sed -e 's/^..//')"
 case $1 in
