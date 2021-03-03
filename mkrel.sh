@@ -1,9 +1,13 @@
 #!/bin/sh
 set -e # exit if any of commands fail
-# Check for Git-Flow and install it via Homebrew if missing
-git flow help 2>&1 | grep -q 'is not a git command' && \
-  echo "Please install Git-Flow, eg. 'brew install git-flow'" && exit 1
 MKREL="$(basename $0)"
+
+# Check for Git-Flow and suggest installing it via Homebrew if missing
+if git flow help 2>&1 | grep -q 'is not a git command'; then
+  echo "Please install Git-Flow, eg. 'brew install git-flow'"
+  exit 1
+fi
+
 STANDARD_VERSION="npx --no-install standard-version"
 # Check for development branch name
 DEVELOP_BRANCH="$(git branch --list 'develop*' --no-color | head -1 | sed -e 's/^..//')"
