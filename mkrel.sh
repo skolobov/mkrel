@@ -25,6 +25,15 @@ get_version_bump() {
   echo "==> Bumping version: ${CUR_VERSION} -> ${NEW_VERSION}"
 }
 
+release_start() {
+  get_version_bump(minor)
+  git flow release start ${NEW_VERSION}
+  ${STANDARD_VERSION} -r minor --prerelease rc --skip.changelog --skip.tag
+  echo "==> Release candidate for ${NEW_VERSION} started - you can now make the necessary changes to code"
+  echo "==> IMPORTANT:"
+  echo "==>     Run '${MKREL} $1 finish' to finalize the process"
+}
+
 case $1 in
   release)
     case $2 in
@@ -33,11 +42,7 @@ case $1 in
           echo "==> Some release was already started? Finish it first by running '${MKREL} release finish'"
           exit 1
         fi
-        git flow release start ${NEW_VERSION}
-        ${STANDARD_VERSION} -r minor --prerelease rc --skip.changelog
-        echo "==> Release candidate ${NEW_VERSION} started - you can now make the necessary changes to code"
-        echo "==> IMPORTANT:"
-        echo "==>     Run '${MKREL} $1 finish' to finalize the process"
+        release_start
         ;;
       finish)
         if git flow release list 2>&1 | grep 'No release branches exist.'; then
