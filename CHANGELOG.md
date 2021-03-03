@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/skolobov/mkrel/compare/v0.2.0...v0.2.1) (2021-03-03)
+
+
+### Bug Fixes
+
+* remove broken case/esac syntax ([79355f9](https://github.com/skolobov/mkrel/commit/79355f9f7d330268e7b722aee263aa285ff879d0))
+* use base script name only in usage messages ([ceb5a74](https://github.com/skolobov/mkrel/commit/ceb5a746ecee052090d569b9584f34bbc09072c1))
+
 ## 0.2.0 (2021-03-03)
 
 
