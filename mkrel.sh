@@ -31,7 +31,7 @@ release_start() {
   ${STANDARD_VERSION} -r minor --prerelease rc --skip.changelog --skip.tag
   echo "==> Release candidate for ${NEW_VERSION} started - you can now make the necessary changes to code"
   echo "==> IMPORTANT:"
-  echo "==>     Run '${MKREL} $1 finish' to finalize the process"
+  echo "==>     Run '${MKREL} release finish' to finalize the process"
 }
 
 case $1 in
