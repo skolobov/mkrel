@@ -43,8 +43,8 @@ case $1 in
             ;;
         esac
         # Explicitly push master and develop(ment) branches to origin
-        git push origin master
-        git push origin ${DEVELOP_BRANCH}
+        git push --follow-tags origin master
+        git push --follow-tags origin ${DEVELOP_BRANCH}
         echo "==> Released version ${NEW_VERSION}"
         echo "==> NOTE: please manually delete 'origin/release/${NEW_VERSION}' branch once CI build is finished"
         ;;
