@@ -68,6 +68,8 @@ case $1 in
         git push --follow-tags origin master
         git push --follow-tags origin ${DEVELOP_BRANCH}
         echo "==> Released version ${NEW_VERSION}"
+        echo "==> Removing local release/${NEW_VERSION} branch (not needed anymore)"
+        git branch -d release/${NEW_VERSION}
         echo "==> NOTE: please manually delete 'origin/release/${NEW_VERSION}' branch once CI build is finished"
         ;;
       *)
