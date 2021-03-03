@@ -15,7 +15,8 @@ case $1 in
         echo "==> Current version is ${CUR_VERSION}"
         echo "==> Starting new release ${NEW_VERSION}"
         git flow release start ${NEW_VERSION}
-        echo "==> Release ${NEW_VERSION} started - you can now make the necessary changes to code"
+        npx standard-version -r minor --prerelease rc --skip.changelog
+        echo "==> Release candidate ${NEW_VERSION} started - you can now make the necessary changes to code"
         echo "==> IMPORTANT:"
         echo "==>     Run '$0 $1 finish' to finalize the process"
         ;;
