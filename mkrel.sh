@@ -9,9 +9,10 @@ case $1 in
   release)
     case $2 in
       start)
-        VERSION=$(grep version package.json | awk '{print $2}' | sed 's/[\",]//g')
-        echo "==> Current version is ${VERSION}"
-        NEW_VERSION=$(unleash --minor --dry-run | grep "changelog entry for version" | awk '{print $9}')
+        VERSION_BUMP=$(npx standard-version -r minor --dry-run | grep "bumping version in package.json")
+        CUR_VERSION=$(echo ${VERSION_BUMP} | awk '{print $7}')
+        NEW_VERSION=$(echo ${VERSION_BUMP} | awk '{print $9}')
+        echo "==> Current version is ${CUR_VERSION}"
         echo "==> Starting new release ${NEW_VERSION}"
         git flow release start ${NEW_VERSION}
         echo "==> Release ${NEW_VERSION} started - you can now make the necessary changes to code"
@@ -23,13 +24,15 @@ case $1 in
           echo "==> There isn't any release started - run '$0 feature start' first"
           exit 1
         fi
-        NEW_VERSION=$(unleash --minor --dry-run | grep "changelog entry for version" | awk '{print $9}')
+        VERSION_BUMP=$(npx standard-version -r minor --dry-run | grep "bumping version in package.json")
+        CUR_VERSION=$(echo ${VERSION_BUMP} | awk '{print $7}')
+        NEW_VERSION=$(echo ${VERSION_BUMP} | awk '{print $9}')
         if ! git flow release list 2>&1 | grep ${NEW_VERSION}; then
           echo "==> There is no 'release/${NEW_VERSION}' branch started - run '$0 release' first"
           exit 1
         fi
         echo "==> Finalizing release ${NEW_VERSION}"
-        unleash --minor --no-publish
+        npx standard-version -r minor
         GIT_MERGE_AUTOEDIT=no git flow release finish -n -k ${NEW_VERSION}
         # Explicitly push master and develop(ment) branches to origin
         git push origin master
