@@ -26,7 +26,7 @@ get_version_bump() {
 }
 
 release_start() {
-  get_version_bump(minor)
+  get_version_bump minor
   git flow release start ${NEW_VERSION}
   ${STANDARD_VERSION} -r minor --prerelease rc --skip.changelog --skip.tag
   echo "==> Release candidate for ${NEW_VERSION} started - you can now make the necessary changes to code"
@@ -49,7 +49,7 @@ case $1 in
           echo "==> There isn't any release started - run '${MKREL} release start' first"
           exit 1
         fi
-        get_version_bump(minor)
+        get_version_bump minor
         if ! git flow release list 2>&1 | grep ${NEW_VERSION}; then
           echo "==> There is no 'release/${NEW_VERSION}' branch started - run '${MKREL} release start' first"
           exit 1
@@ -92,7 +92,7 @@ case $1 in
   hotfix)
     case $2 in
       start)
-        get_version_bump(patch)
+        get_version_bump patch
         git flow hotfix start ${NEW_VERSION}
         echo "==> Hotfix ${NEW_VERSION} started - you can now make the necessary changes to code"
         echo "==> IMPORTANT:"
@@ -103,7 +103,7 @@ case $1 in
           echo "==> There isn't any hotfix started - run '${MKREL} $1 start' first"
           exit 1
         fi
-        get_version_bump(patch)
+        get_version_bump patch
         if ! git flow hotfix list 2>&1 | grep ${NEW_VERSION}; then
           echo "==> There is no 'hotfix/${NEW_VERSION}' branch started - run '${MKREL} $1 start' first"
           exit 1
