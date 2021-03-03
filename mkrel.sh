@@ -9,9 +9,9 @@ case $1 in
   release)
     case $2 in
       start)
-        VERSION_BUMP=$(npx standard-version -r minor --dry-run | grep "bumping version in package.json")
-        CUR_VERSION=$(echo ${VERSION_BUMP} | awk '{print $7}')
-        NEW_VERSION=$(echo ${VERSION_BUMP} | awk '{print $9}')
+        VERSION_BUMP="$(npx standard-version -r minor --dry-run | grep 'bumping version in package.json')"
+        CUR_VERSION="$(echo ${VERSION_BUMP} | awk '{print $7}')"
+        NEW_VERSION="$(echo ${VERSION_BUMP} | awk '{print $9}')"
         echo "==> Current version is ${CUR_VERSION}"
         echo "==> Starting new release ${NEW_VERSION}"
         git flow release start ${NEW_VERSION}
@@ -25,20 +25,20 @@ case $1 in
           echo "==> There isn't any release started - run '$0 release start' first"
           exit 1
         fi
-        VERSION_BUMP=$(npx standard-version -r minor --dry-run | grep "bumping version in package.json")
-        CUR_VERSION=$(echo ${VERSION_BUMP} | awk '{print $7}')
-        NEW_VERSION=$(echo ${VERSION_BUMP} | awk '{print $9}')
+        VERSION_BUMP="$(npx standard-version -r minor --dry-run | grep 'bumping version in package.json')"
+        CUR_VERSION="$(echo ${VERSION_BUMP} | awk '{print $7}')"
+        NEW_VERSION="$(echo ${VERSION_BUMP} | awk '{print $9}')"
         if ! git flow release list 2>&1 | grep ${NEW_VERSION}; then
           echo "==> There is no 'release/${NEW_VERSION}' branch started - run '$0 release start' first"
           exit 1
         fi
         echo "==> Finalizing release ${NEW_VERSION}"
         npx standard-version -r minor
-        GIT_MERGE_AUTOEDIT=no git flow release finish -n -k ${NEW_VERSION}
+        GIT_MERGE_AUTOEDIT="no" git flow release finish -n -k ${NEW_VERSION}
         case $3 in
           --skip-migration)
-            [ $(git rev-parse --abbrev-ref HEAD) != "master" ] && git checkout master
-            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
+            COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
             ;;
         esac
@@ -63,9 +63,9 @@ case $1 in
   hotfix)
     case $2 in
       start)
-        VERSION_BUMP=$(npx standard-version -r patch --dry-run | grep "bumping version in package.json")
-        CUR_VERSION=$(echo ${VERSION_BUMP} | awk '{print $7}')
-        NEW_VERSION=$(echo ${VERSION_BUMP} | awk '{print $9}')
+        VERSION_BUMP="$(npx standard-version -r patch --dry-run | grep 'bumping version in package.json')"
+        CUR_VERSION="$(echo ${VERSION_BUMP} | awk '{print $7}')"
+        NEW_VERSION="$(echo ${VERSION_BUMP} | awk '{print $9}')"
         echo "==> Current version is ${CUR_VERSION}"
         echo "==> Starting new hotfix version ${NEW_VERSION}"
         git flow hotfix start ${NEW_VERSION}
@@ -78,20 +78,20 @@ case $1 in
           echo "==> There isn't any hotfix started - run '$0 $1 start' first"
           exit 1
         fi
-        VERSION_BUMP=$(npx standard-version -r patch --dry-run | grep "bumping version in package.json")
-        CUR_VERSION=$(echo ${VERSION_BUMP} | awk '{print $7}')
-        NEW_VERSION=$(echo ${VERSION_BUMP} | awk '{print $9}')
+        VERSION_BUMP="$(npx standard-version -r patch --dry-run | grep 'bumping version in package.json')"
+        CUR_VERSION="$(echo ${VERSION_BUMP} | awk '{print $7}')"
+        NEW_VERSION="$(echo ${VERSION_BUMP} | awk '{print $9}')"
         if ! git flow hotfix list 2>&1 | grep ${NEW_VERSION}; then
           echo "==> There is no 'hotfix/${NEW_VERSION}' branch started - run '$0 $1 start' first"
           exit 1
         fi
         echo "==> New version is ${NEW_VERSION}"
         npx standard-version -r patch
-        GIT_MERGE_AUTOEDIT=no git flow hotfix finish -n ${NEW_VERSION}
+        GIT_MERGE_AUTOEDIT="no" git flow hotfix finish -n ${NEW_VERSION}
         case $3 in
           --skip-migration)
-            [ $(git rev-parse --abbrev-ref HEAD) != "master" ] && git checkout master
-            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
+            COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
             ;;
         esac
