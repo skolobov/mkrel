@@ -1,6 +1,6 @@
 {
   "name": "mkrel",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Release management tool that follows Git Flow",
   "main": "",
   "bin": "./mkrel.sh",

@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/skolobov/mkrel/compare/v0.2.1...v0.2.2) (2021-03-03)
+
+
+### Features
+
+* add -s/--start-new to start a new release right away ([003feff](https://github.com/skolobov/mkrel/commit/003fefff5091e67aa533061c639d6da93f617cab))
+* add shorter -m version of --skip-migration flag ([1f3376f](https://github.com/skolobov/mkrel/commit/1f3376f0217d9249489fd530552d60d5b3eb0f4a))
+* automatically add standard-version as devDependency if needed ([9a65ace](https://github.com/skolobov/mkrel/commit/9a65ace934010a668739d3e4033b50f3590b842d))
+
+
+### Bug Fixes
+
+* check for any unfinished releases before starting a new one ([e97c8ab](https://github.com/skolobov/mkrel/commit/e97c8abe16081b52a2834418858dc146c29bc774))
+* don't try to install standard-version every time we invoke it ([12b83e8](https://github.com/skolobov/mkrel/commit/12b83e84370b93508c9fdcc936deec02f83dba96))
+* explicitly specify subcommand as $1 would have different value inside a function ([4b4a6a9](https://github.com/skolobov/mkrel/commit/4b4a6a9adab1673e4527d9dd9c58c1537eef0d03))
+* remove local release branch after finishing it ([0692dcd](https://github.com/skolobov/mkrel/commit/0692dcde03e36e9519810c5b16c79c3f59fdf4c7))
+
 ### [0.2.1](https://github.com/skolobov/mkrel/compare/v0.2.0...v0.2.1) (2021-03-03)
 
 
