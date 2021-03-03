@@ -5,6 +5,7 @@
   "main": "",
   "bin": "./mkrel.sh",
   "scripts": {
+    "release": "standard-version && git push --follow-tags origin main && npm publish",
     "test": ""
   },
   "repository": {
