@@ -11,6 +11,10 @@ case $1 in
   release)
     case $2 in
       start)
+        if ! git flow release list 2>&1 | grep 'No release branches exist.'; then
+          echo "==> Some release was already started? Finish it first by running '${MKREL} release finish'"
+          exit 1
+        fi
         VERSION_BUMP="$(${STANDARD_VERSION} -r minor --dry-run | grep 'bumping version in package.json')"
         CUR_VERSION="$(echo ${VERSION_BUMP} | awk '{print $7}')"
         NEW_VERSION="$(echo ${VERSION_BUMP} | awk '{print $9}')"
