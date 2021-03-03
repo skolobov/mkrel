@@ -87,7 +87,17 @@ case $1 in
         fi
         echo "==> New version is ${NEW_VERSION}"
         npx standard-version -r patch
-        GIT_MERGE_AUTOEDIT=no git flow hotfix finish -np ${NEW_VERSION}
+        GIT_MERGE_AUTOEDIT=no git flow hotfix finish -n ${NEW_VERSION}
+        case $3 in
+          --skip-migration)
+            [ $(git rev-parse --abbrev-ref HEAD) != "master" ] && git checkout master
+            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
+            ;;
+        esac
+        # Explicitly push master and develop(ment) branches to origin
+        git push --follow-tags origin master
+        git push --follow-tags origin ${DEVELOP_BRANCH}
         echo "==> Finished hotfix release ${NEW_VERSION}"
         ;;
       *)
