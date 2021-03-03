@@ -48,8 +48,6 @@ case $1 in
         echo "==> Released version ${NEW_VERSION}"
         echo "==> NOTE: please manually delete 'origin/release/${NEW_VERSION}' branch once CI build is finished"
         ;;
-      -h)
-      --help)
       *)
         echo "Usage:"
         echo "    $0 $1 start   - start a new release, incrementing minor version"
