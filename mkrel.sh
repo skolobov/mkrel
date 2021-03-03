@@ -58,7 +58,7 @@ case $1 in
         ${STANDARD_VERSION} -r minor
         GIT_MERGE_AUTOEDIT="no" git flow release finish -n -k ${NEW_VERSION}
         case $3 in
-          --skip-migration)
+          -m|--skip-migration)
             [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
             COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
@@ -112,7 +112,7 @@ case $1 in
         ${STANDARD_VERSION} -r patch
         GIT_MERGE_AUTOEDIT="no" git flow hotfix finish -n ${NEW_VERSION}
         case $3 in
-          --skip-migration)
+          -m|--skip-migration)
             [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
             COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
