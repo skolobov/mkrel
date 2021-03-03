@@ -23,8 +23,8 @@
     "url": "https://github.com/skolobov/mkrel/issues"
   },
   "homepage": "https://github.com/skolobov/mkrel#readme",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "standard-version": "^9.1.1"
-  },
-  "dependencies": {}
+  }
 }
