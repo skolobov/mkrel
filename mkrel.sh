@@ -35,6 +35,13 @@ case $1 in
         echo "==> Finalizing release ${NEW_VERSION}"
         npx standard-version -r minor
         GIT_MERGE_AUTOEDIT=no git flow release finish -n -k ${NEW_VERSION}
+        case $3 in
+          --skip-migration)
+            [ $(git rev-parse --abbrev-ref HEAD) != "master" ] && git checkout master
+            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
+            ;;
+        esac
         # Explicitly push master and develop(ment) branches to origin
         git push origin master
         git push origin ${DEVELOP_BRANCH}
@@ -44,7 +51,7 @@ case $1 in
       *)
         echo "Usage:"
         echo "    $0 $1 start   - start a new release, incrementing minor version"
-        echo "    $0 $1 finish  - finalize the release process"
+        echo "    $0 $1 finish [--skip-migration] - finalize the release process"
         echo
 
         exit 1
