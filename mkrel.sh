@@ -101,7 +101,7 @@ case $1 in
       *)
         echo "Usage:"
         echo "    $0 $1 start   - start a new hotfix, incrementing patch version"
-        echo "    $0 $1 finish  - finalize the hotfix process"
+        echo "    $0 $1 finish [--skip-migration] - finalize the hotfix process"
         echo
 
         exit 1
