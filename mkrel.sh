@@ -132,7 +132,6 @@ case $1 in
           echo "==> There is no 'hotfix/${NEW_VERSION}' branch started - run '${MKREL} $1 start' first"
           exit 1
         fi
-        echo "==> New version is ${NEW_VERSION}"
         ${STANDARD_VERSION} -r patch
         GIT_MERGE_AUTOEDIT="no" git flow hotfix finish -n ${NEW_VERSION}
         case $3 in
