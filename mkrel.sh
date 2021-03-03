@@ -71,6 +71,13 @@ case $1 in
         echo "==> Removing local release/${NEW_VERSION} branch (not needed anymore)"
         git branch -d release/${NEW_VERSION}
         echo "==> NOTE: please manually delete 'origin/release/${NEW_VERSION}' branch once CI build is finished"
+        
+        case $3 in
+          -s|--start-new)
+            echo "==> Starting a new release right away..."
+            release_start
+            ;;
+        esac
         ;;
       *)
         echo "Usage:"
