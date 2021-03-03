@@ -2,6 +2,34 @@
 set -e # exit if any of commands fail
 MKREL="$(basename $0)"
 
+show_usage() {
+  echo "mkrel 0.2.1 - Release management tool that follows Git Flow"
+  echo
+  echo "Usage:"
+  echo
+  echo "> mkrel release start"
+  echo "  Creates a new release candidate in a new release branch that"
+  echo "  would increment minor version when finished"
+  echo
+  echo "> mkrel release finish [-m|--skip-migration] [-s|--start-new]"
+  echo "  Finalize the release, incrementing minor version,"
+  echo "  closing the release branch, generating the changelog, tagging it"
+  echo "  and merging back to master and development branches"
+  echo "  Optional parameters:"
+  echo "  -m, --skip-migration  add [skip migration] tag to the last commit message"
+  echo "                        in order to bypass running database migrations"
+  echo "  -s, --start-new       start a new release branch right away"
+  echo
+  echo "> mkrel hotfix start"
+  echo "  Creates a new hotfix branch from master, incrementing patch version"
+  echo
+  echo "> mkrel hotfix finish [-m|--skip-migration]"
+  echo "  Finalize the hotfix, generating the changelog and merging the branch"
+  echo "  Optional parameters:"
+  echo "  -m, --skip-migration  add [skip migration] tag to the last commit message"
+  echo "                        in order to bypass running database migrations"
+  echo
+}
 # Check for Git-Flow and suggest installing it via Homebrew if missing
 if git flow help 2>&1 | grep -q 'is not a git command'; then
   echo "Please install Git-Flow, eg. 'brew install git-flow'"
@@ -80,11 +108,7 @@ case $1 in
         esac
         ;;
       -h|--help|*)
-        echo "Usage:"
-        echo "    ${MKREL} $1 start   - start a new release, incrementing minor version"
-        echo "    ${MKREL} $1 finish [--skip-migration] - finalize the release process"
-        echo
-
+        show_usage
         exit 1
         ;;
       esac
@@ -124,21 +148,13 @@ case $1 in
         echo "==> Finished hotfix release ${NEW_VERSION}"
         ;;
       -h|--help|*)
-        echo "Usage:"
-        echo "    ${MKREL} $1 start   - start a new hotfix, incrementing patch version"
-        echo "    ${MKREL} $1 finish [--skip-migration] - finalize the hotfix process"
-        echo
-
+        show_usage
         exit 1
         ;;
     esac
     ;;
   -h|--help|*)
-    echo "Usage:"
-    echo "    ${MKREL} release [start|finish] - make a new release, incrementing minor version"
-    echo "    ${MKREL} hotfix  [start|finish] - make a new hotfix, incrementing patch version"
-    echo
-
+    show_usage
     exit 1
     ;;
 esac
