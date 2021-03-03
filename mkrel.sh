@@ -79,7 +79,7 @@ case $1 in
             ;;
         esac
         ;;
-      *)
+      -h|--help|*)
         echo "Usage:"
         echo "    ${MKREL} $1 start   - start a new release, incrementing minor version"
         echo "    ${MKREL} $1 finish [--skip-migration] - finalize the release process"
@@ -123,7 +123,7 @@ case $1 in
         git push --follow-tags origin ${DEVELOP_BRANCH}
         echo "==> Finished hotfix release ${NEW_VERSION}"
         ;;
-      *)
+      -h|--help|*)
         echo "Usage:"
         echo "    ${MKREL} $1 start   - start a new hotfix, incrementing patch version"
         echo "    ${MKREL} $1 finish [--skip-migration] - finalize the hotfix process"
@@ -133,7 +133,7 @@ case $1 in
         ;;
     esac
     ;;
-  *)
+  -h|--help|*)
     echo "Usage:"
     echo "    ${MKREL} release [start|finish] - make a new release, incrementing minor version"
     echo "    ${MKREL} hotfix  [start|finish] - make a new hotfix, incrementing patch version"
