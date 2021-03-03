@@ -2,9 +2,6 @@
 set -e # exit if any of commands fail
 # Check for unleash and install it if missing
 which unleash > /dev/null || npm install -g unleash
-# Check fpr Homebrew and install it if missing
-which brew > /dev/null || \
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 # Check for Git-Flow and install it via Homebrew if missing
 git flow help 2>&1 | grep -q 'is not a git command' && brew install git-flow
 # Check for development branch name
@@ -97,4 +94,3 @@ case $1 in
     exit 1
     ;;
 esac
-
