@@ -22,14 +22,14 @@ case $1 in
         ;;
       finish)
         if git flow release list 2>&1 | grep 'No release branches exist.'; then
-          echo "==> There isn't any release started - run '$0 feature start' first"
+          echo "==> There isn't any release started - run '$0 release start' first"
           exit 1
         fi
         VERSION_BUMP=$(npx standard-version -r minor --dry-run | grep "bumping version in package.json")
         CUR_VERSION=$(echo ${VERSION_BUMP} | awk '{print $7}')
         NEW_VERSION=$(echo ${VERSION_BUMP} | awk '{print $9}')
         if ! git flow release list 2>&1 | grep ${NEW_VERSION}; then
-          echo "==> There is no 'release/${NEW_VERSION}' branch started - run '$0 release' first"
+          echo "==> There is no 'release/${NEW_VERSION}' branch started - run '$0 release start' first"
           exit 1
         fi
         echo "==> Finalizing release ${NEW_VERSION}"
