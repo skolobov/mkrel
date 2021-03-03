@@ -8,7 +8,13 @@ if git flow help 2>&1 | grep -q 'is not a git command'; then
   exit 1
 fi
 
+# Check for standard-version npm module and install it if needed
 STANDARD_VERSION="npx --no-install standard-version"
+if ${STANDARD_VERSION} --help | grep "not found: standard-version"; then
+  echo "==> standard-version wasn't found - adding as a devDependency"
+  npm install --save-dev standard-version
+fi
+
 # Check for development branch name
 DEVELOP_BRANCH="$(git branch --list 'develop*' --no-color | head -1 | sed -e 's/^..//')"
 case $1 in
