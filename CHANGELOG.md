@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/skolobov/mkrel/compare/v0.2.3...v0.2.4) (2022-05-26)
+
+
+### Features
+
+* add --skip-backup and --skip-both flags ([6b428c4](https://github.com/skolobov/mkrel/commit/6b428c4980c74c6a79a7f81dc28f92793af59118))
+
+
+### Bug Fixes
+
+* upgrade standard-version from 9.1.1 to 9.3.1 ([ac0207b](https://github.com/skolobov/mkrel/commit/ac0207bb3952ae071b2484f232a792d5c8bda8d8))
+
 ### [0.2.3](https://github.com/skolobov/mkrel/compare/v0.2.2...v0.2.3) (2021-03-03)
 
 ### [0.2.2](https://github.com/skolobov/mkrel/compare/v0.2.1...v0.2.2) (2021-03-03)
