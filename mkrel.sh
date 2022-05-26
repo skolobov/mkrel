@@ -97,6 +97,18 @@ case $1 in
             COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
             ;;
+
+          -b|--skip-backup)
+            [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
+            COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
+            git commit --amend -m "${COMMIT_MESSAGE} [skip backup]"
+            ;;
+
+          --skip-both)
+            [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
+            COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
+            git commit --amend -m "${COMMIT_MESSAGE} [skip backup] [skip migration]"
+            ;;
         esac
 
         # Explicitly push master and develop(ment) branches to origin
@@ -155,6 +167,18 @@ case $1 in
             [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
             COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
             git commit --amend -m "${COMMIT_MESSAGE} [skip migration]"
+            ;;
+
+          -b|--skip-backup)
+            [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
+            COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
+            git commit --amend -m "${COMMIT_MESSAGE} [skip backup]"
+            ;;
+
+          --skip-both)
+            [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ] && git checkout master
+            COMMIT_MESSAGE="$(git log -1 --pretty=%B)"
+            git commit --amend -m "${COMMIT_MESSAGE} [skip backup] [skip migration]"
             ;;
         esac
 
