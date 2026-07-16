@@ -25,6 +25,6 @@
   "homepage": "https://github.com/skolobov/mkrel#readme",
   "devDependencies": {},
   "dependencies": {
-    "standard-version": "^9.5.0"
+    "commit-and-tag-version": "^9.5.0"
   }
 }
